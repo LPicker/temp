@@ -11,7 +11,7 @@
 ` ECMAScript 6 ` 于2015年正式发布，所以又称为 “`ECMAScript 2015`”。
 
 ```
-注：` ECMAScript 6 `大家都叫她` es6 `，本文下面也简称` es6 `。
+注： ECMAScript 6 大家都叫她 es6 ，本文下面也简称 es6 。
 ```
 
 以 js 的数据类型来看，可以这么几种分类：
