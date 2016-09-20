@@ -114,7 +114,54 @@ var [foo = true] = [];
 ```
 
 ### 字符串的扩展
+
+#### 字符串模板
+
+`es6` 对于字符串的扩展可以说就是字符串模板了。它极大地方便了我们进行大量的动态内容拼接操作。
+
+之前，我们在页面中插入大量的 `html` 格式化内容，通常会这样做
+```javascript
+var items = ['item1', 'item2']
+var html = '<div class="template">' +
+			   '<ul>' + 
+				   '<li>' + 
+				   'This is a list ' + items[0] + ' !' + 
+				   '</li>' + 
+				   '<li>' + 
+				   'This is a list ' + items[1] + ' !' + 
+				   '</li>' + 
+			   '</ul>' + 
+		   '</div>';
+
+$('#container').html(html);
+```
+利用 `es6` 的字符串模板，我们可以这样
+```javascript
+var html = `<div class="template">
+			   <ul>
+				   <li>
+				   This is a list ${items[0]}!
+				   </li>
+				   <li>
+				   This is a list ${items[1]}!
+				   </li>
+			   </ul>
+		   </div>`;
+
+$('#container').html(html);
+```
+怎么样？是不是简单多了？可读性更好。它天然支持换行，并且内容中可以变量，以 `${}` 的形式，`{}` 内部可以有 `JavaScript` 表达式。
+
+#### 字符串方法
+另外，`es6` 还为我们提供了 `includes(), startsWith(), endsWith()` 三种新的字符串方法：
+
+- **includes()**：返回布尔值，表示是否找到了参数字符串。
+- **startsWith()**：返回布尔值，表示参数字符串是否在源字符串的头部。
+- **endsWith()**：返回布尔值，表示参数字符串是否在源字符串的尾部。
+
 ### 正则的扩展
+
+
 ### 数值的扩展
 ### 数组的扩展
 ### 函数的扩展
@@ -135,29 +182,3 @@ var [foo = true] = [];
 
 
 
-
-
-《ECMAScript 6入门》是一本开源的JavaScript语言教程，全面介绍 ` ECMAScript 6 ` 新引入的语法特性。
-
-[![cover](images/cover_thumbnail.jpg)](images/cover-2nd.jpg)
-
-本书覆盖 ES6/ES7 与 ES5 的所有不同之处，对涉及的语法知识给予详细介绍，并给出大量简洁易懂的示例代码。
-
-本书为中级难度，适合已经掌握 ES5 的读者，用来了解这门语言的最新发展；也可当作参考手册，查寻新增的语法点。
-
-全书已由电子工业出版社出版，目前是第二版，书名为《ES6 标准入门》。纸版是基于网站内容排版印刷的。
-
-感谢张春雨编辑支持我将全书开源的做法。如果您认可这本书，建议购买纸版。这样可以使出版社不因出版开源书籍而亏钱，进而鼓励更多的作者开源自己的书籍。
-
-- [京东](http://item.jd.com/11849235.html)
-- [当当](http://product.dangdang.com/23840431.html)
-- [亚马逊](http://www.amazon.cn/ES6-%E6%A0%87%E5%87%86%E5%85%A5%E9%97%A8-%E9%98%AE%E4%B8%80%E5%B3%B0/dp/B01A18WWAG/)
-- [China-pub](http://product.china-pub.com/4904712)
-
-### 版权许可
-
-本书采用“保持署名—非商用”创意共享4.0许可证。
-
-只要保持原作者署名和非商用，您可以自由地阅读、分享、修改本书。
-
-详细的法律条文请参见[创意共享](http://creativecommons.org/licenses/by-nc/4.0/)网站。
