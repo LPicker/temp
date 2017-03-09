@@ -44,6 +44,10 @@
 	<script src="dev-libs/jquery.min.js"></script>
 	<script>
 		var datas = [{
+			id: "0",
+			name: "复选框0",
+			checked: false
+		}, {
 			id: "1",
 			name: "复选框1",
 			checked: true
@@ -52,6 +56,10 @@
 			name: "复选框2",
 			checked: false,
 			children: [{
+				id: "2-0",
+				name: "复选框2-0",
+				checked: false
+			}, {
 				id: "2-1",
 				name: "复选框2-1",
 				checked: false
@@ -66,7 +74,7 @@
 			}, {
 				id: "2-1",
 				name: "复选框2-1",
-				checked: true
+				checked: false
 			}]
 		}, {
 			id: "3",
@@ -117,9 +125,17 @@
 			var treeDatas = this.treeDatas;
 			$(document).on("change", ":checkbox", function(e){
 				$.each(treeDatas, function(i, ele){
-					e.target.["data-id"]
+					var tarChecked = e.target.checked,
+						checkedId = $(e.target).data("id").toString(),
+						checkedIdArr = checkedId.split("-"),
+						lev1Id = checkedIdArr[0],
+						lev2Id = checkedIdArr[1];
+					if(checkedIdArr.length === 1){
+						treeDatas[checkedId].checked = tarChecked;
+					}else if(checkedIdArr.length === 2){
+						treeDatas[lev1Id].children[lev2Id].checked = tarChecked;
+					}
 				});
-				console.log(e, "\n");
 			});
 		}
 		Ltree.prototype.d = function(){};
