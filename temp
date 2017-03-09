@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ltree</title>
+	<style>
+		.l-tree {}
+		.l-tree li{list-style: none}
+	</style>
+</head>
+<body>
+	<div style="display:none">
+		<ul class="l-tree">
+			<li>
+				<label><input type="checkbox">复选框1</label>
+			</li>
+			<li>
+				<label><input type="checkbox">复选框2</label>
+				<ul class="l-tree">
+					<li>
+						<label><input type="checkbox">复选框1</label>
+					</li>
+					<li>
+						<label><input type="checkbox">复选框2</label>
+					</li>
+					<li>
+						<label><input type="checkbox">复选框3</label>
+					</li>
+					<li>
+						<label><input type="checkbox">复选框4</label>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<label><input type="checkbox">复选框3</label>
+			</li>
+			<li>
+				<label><input type="checkbox">复选框4</label>
+			</li>
+		</ul>
+	</div>
+
+	<div id="Ltree"></div>
+	<script src="dev-libs/jquery.min.js"></script>
+	<script>
+		var datas = [{
+			id: "1",
+			name: "复选框1",
+			checked: true
+		}, {
+			id: "2",
+			name: "复选框2",
+			checked: false,
+			children: [{
+				id: "2-1",
+				name: "复选框2-1",
+				checked: false
+			}, {
+				id: "2-1",
+				name: "复选框2-1",
+				checked: true
+			}, {
+				id: "2-1",
+				name: "复选框2-1",
+				checked: true
+			}, {
+				id: "2-1",
+				name: "复选框2-1",
+				checked: true
+			}]
+		}, {
+			id: "3",
+			name: "复选框3",
+			checked: false
+		}, {
+			id: "4",
+			name: "复选框4",
+			checked: true
+		}];
+
+
+		function Ltree(tree, tarEle){
+			this.treeDatas = [];
+
+			var init = function (treeArr, tarEle, cloneTree){
+				var $ul = $("<ul>", {
+					class: "l-tree"
+				});
+
+				$.each(treeArr, function(i, ele){
+					cloneTree.push(ele);
+
+					var $input = $("<input>", {
+						type: "checkbox",
+						checked: ele.checked,
+						"data-id": ele.id
+					});
+					var $label = $("<label>", {
+						id: ele.id,
+						text: ele.name
+					}).prepend($input);
+					var $li = $("<li>").append($label);
+
+					var children = ele.children;
+					if(children && children.length > 0){
+						var cloneChildren = cloneTree[i].children = [];
+						init(children, $li, cloneChildren);
+					}
+
+					$ul.append($li);
+				});
+				tarEle.append($ul);
+			};
+
+			init(tree, tarEle, this.treeDatas);
+
+			var treeDatas = this.treeDatas;
+			$(document).on("change", ":checkbox", function(e){
+				$.each(treeDatas, function(i, ele){
+					e.target.["data-id"]
+				});
+				console.log(e, "\n");
+			});
+		}
+		Ltree.prototype.d = function(){};
+
+		var ltree = new Ltree(datas, $("#Ltree"));
+		// console.table(ltree);
+	</script>
+</body>
+</html>
