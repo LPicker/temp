@@ -1,0 +1,25 @@
+在开发页面的时候，我们常常会用到一个值，就是滚动条到窗口左边界的距离，通常可以使用的属性有三个，分别是：
+
+1. window.scrollX;
+
+2. window.pageXOffset;
+
+3. document.documenetElement.scrollLeft
+
+每个方法都有自己的一些特点和需要注意的地方。
+
+
+先通过一篇文章来了解下，，地址：http://help.dottoro.com/ljfswxte.php
+
+翻译如下：
+
+如果你想获取文档距离左边滚动的像素大小，你可以采用以下方法：
+
+window对象的pageXOffset属性总是可以返回滚动的长度，不管doctype是什么类型的，所有浏览器都支持这个属性，除了IE8及其更低版本的IE浏览器。
+window对象的scrollX属性总是可以返回滚动的长度，不管doctype是什么类型，Firefox, Chrome和Safari都支持该属性。
+如果文档中没有指明文档类型，在IE, Firefox, Opera, Chrome和Safari中，通过body的scrollLeft可以获取滚动的数值。
+如果有指明文档类型，那么在IE, Firefox和Opera中，可以通过html的scrollLeft属性获取滚动的数值，但是在Chrome和Safari中的值总是为0.
+如果没有指明文档类型，那么html的scrollLeft属性总是返回0.
+综合以上的信息，我们可以得出获取滚动条滚动数值的方法如下：
+var scrollLeft =  window.scrollX != undefined ? window.scrollX : window.pageXOffset;  
+scrollLeft = scrollLeft != undefined ? scrollLeft : (document.documentElement || document.body).scrollLeft; 
