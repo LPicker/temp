@@ -1,0 +1,46 @@
+
+export function titlefix(tipClassName){
+    var lTooltip = document.createElement("div");
+    lTooltip.className = tipClassName;
+    document.body.appendChild(lTooltip);
+    var titleTxt = "";
+    var context = document.getElementById("csm-resmgr-task") || document.body;
+
+    context.addEventListener("mouseover", e => {
+        var tar = e.target;
+        titleTxt = tar.getAttribute("data-title");
+        if(!titleTxt || titleTxt === "--"){return;}
+        tar.removeAttribute("data-title");
+        var winSize = {
+            w: window.innerWidth || document.body.clientWidth,
+            h: window.innerHeight || document.body.clientHeight
+        };
+        var pos = {
+            x: e.clientX + (window.scrollX || document.documentElement.scrollLeft || 0) + 8,
+            y: e.clientY + (window.scrollY || document.documentElement.scrollTop || 0) + 8
+        };
+        if("textContent" in lTooltip){
+            lTooltip.textContent = titleTxt;
+        }else if("innerText" in lTooltip){
+            lTooltip.innerText = titleTxt;
+        }
+        lTooltip.style.visibility = "hidden";
+        lTooltip.style.display = "block";
+        lTooltip.style.left = 0;
+        lTooltip.style.top = 0;
+        const tipWidth = lTooltip.offsetWidth;
+        // 如果期望的坐标超出文档范围，使用文档的宽度进行计算, 18为滚动条的平均宽度, 20为页面两边的边距
+        if(pos.x + tipWidth + 20 >= winSize.w){
+            pos.x = winSize.w - tipWidth - 18 - 20;
+        }
+        lTooltip.style.left = pos.x + "px";
+        lTooltip.style.top = pos.y + "px";
+        lTooltip.style.visibility = "visible";
+    }, true);
+    context.addEventListener("mouseout", e => {
+        var tar = e.target;
+        if(!titleTxt || titleTxt === "--"){return;}
+        tar.setAttribute("data-title", titleTxt);
+        lTooltip.style.display = "none";
+    }, true);
+}
